@@ -43,6 +43,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3er1b")
 
+[node name="Fade_Transition" parent="." instance=ExtResource("2_hxu56")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Timer" type="Timer" parent="Fade_Transition"]
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
 offset_left = -573.0
@@ -135,22 +150,7 @@ theme_override_font_sizes/font_size = 100
 text = "Game Name"
 uppercase = true
 
-[node name="Fade_Transition" parent="." instance=ExtResource("2_hxu56")]
-visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="Timer" type="Timer" parent="Fade_Transition"]
-
+[connection signal="timeout" from="Fade_Transition/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Levels" to="." method="_on_levels_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="timeout" from="Fade_Transition/Timer" to="." method="_on_timer_timeout"]
