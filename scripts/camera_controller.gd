@@ -11,6 +11,7 @@ extends Node
 @export var min_zoom := 0.5
 @export var max_zoom := 5.0
 @export var zoom_speed := 0.5
+@export var invert_y := false
 
 # --- ADDED (controller only) ---
 @export var joystick_sensi := 2.5
@@ -30,7 +31,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	# Mouse look
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		var motion := event as InputEventMouseMotion
-		_camera_input_direction += motion.relative * mouse_sensi
+		var y_input = motion.relative.y * mouse_sensi
+		if invert_y:
+			y_input *= -1
+
+		_camera_input_direction.x += motion.relative.x * mouse_sensi
+		_camera_input_direction.y += y_input
 
 	# Zoom
 	if event.is_action_pressed("wheel_up"):
@@ -49,7 +55,11 @@ func _process(delta: float) -> void:
 		_camera_input_direction.x += joy_x * joystick_sensi
 
 	if abs(joy_y) > joystick_deadzone:
-		_camera_input_direction.y -= joy_y * joystick_sensi
+		var joy_input_y = joy_y * joystick_sensi
+		if invert_y:
+			joy_input_y *= -1
+
+		_camera_input_direction.y -= joy_input_y
 	# --------------------------------
 
 	# Vertical

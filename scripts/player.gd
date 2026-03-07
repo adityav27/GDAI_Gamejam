@@ -9,6 +9,7 @@ var last_move_direction = Vector3.BACK
 @export_group("Movement")
 @export var walk_speed = 3
 @export var run_speed = 8
+@export var crouch_speed = 1
 @export var move_speed = 0
 @export var acceleration = 20
 @export var turn_speed = 12
@@ -68,8 +69,13 @@ func _physics_process(delta: float) -> void:
 	# ================= SPEED =================
 	if Input.is_action_pressed("run"):
 		move_speed = run_speed
+		
+	elif Input.is_action_pressed("crouch"):
+		
+		move_speed = crouch_speed
 	else:
 		move_speed = walk_speed
+
 
 
 	# ================= MOVEMENT =================
@@ -102,6 +108,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y += jump_impulse
 
 	move_and_slide()
+	
+	# ================= CROUCH =================
 
 
 	# ================= ROTATION =================

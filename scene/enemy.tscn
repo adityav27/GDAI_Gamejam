@@ -1,7 +1,7 @@
 [gd_scene load_steps=59 format=4 uid="uid://cb3yl4d82rnts"]
 
-[ext_resource type="Script" uid="uid://h5h5jwc2ywhf" path="res://scene/enemy.gd" id="1_h08p8"]
-[ext_resource type="Script" uid="uid://d027c028xptfb" path="res://scene/enm_anim_manager.gd" id="2_f87vc"]
+[ext_resource type="Script" uid="uid://h5h5jwc2ywhf" path="res://scripts/enemy.gd" id="1_h08p8"]
+[ext_resource type="Script" uid="uid://d027c028xptfb" path="res://scripts/enm_anim_manager.gd" id="2_f87vc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cjepa"]
 resource_name = "M_Main"
