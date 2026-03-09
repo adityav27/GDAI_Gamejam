@@ -2,6 +2,7 @@ extends Node
 
 @onready var player: CharacterBody3D = $".."
 @onready var animation_player: AnimationPlayer = $"../visuals/AnimationPlayer"
+@onready var stamina_bar: TextureProgressBar = $"../CanvasLayer/Node/StaminaBar"
 
 @export_group("AnimationSettings")
 @export var _blend_time = 0.2
@@ -10,6 +11,8 @@ func _physics_process(delta: float) -> void:
 	var ground_speed = player.velocity.length()
 	var is_crouching = Input.is_action_pressed("crouch")
 	var t_pose = Input.is_action_pressed("tpose")
+	
+	var stamina = stamina_bar.value
 
 	if t_pose:
 		play("A_TPose", 1)
@@ -32,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Normal ground movement
 	elif ground_speed > 2:
-		if player.move_speed == player.run_speed:
+		if (player.move_speed == player.run_speed) and (stamina > 1):
 			play("Sprint", 1)
 		else:
 			play("Walk", 1.2)
