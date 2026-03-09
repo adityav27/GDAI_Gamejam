@@ -67,16 +67,16 @@ func _physics_process(delta: float) -> void:
 
 
 	# ================= SPEED =================
-	if Input.is_action_pressed("run"):
+	if Input.is_action_pressed("crouch"):
+		move_speed = crouch_speed
+		
+	elif Input.is_action_pressed("run"):
 		move_speed = run_speed
 		
-	elif Input.is_action_pressed("crouch"):
-		
-		move_speed = crouch_speed
 	else:
 		move_speed = walk_speed
 
-
+	
 
 	# ================= MOVEMENT =================
 	var y_velocity = velocity.y

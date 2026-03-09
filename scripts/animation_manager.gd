@@ -9,15 +9,21 @@ extends Node
 func _physics_process(delta: float) -> void:
 	var ground_speed = player.velocity.length()
 	var is_crouching = Input.is_action_pressed("crouch")
-	
+	var t_pose = Input.is_action_pressed("tpose")
+
+	if t_pose:
+		play("A_TPose", 1)
+			
 	# Air logic
-	if not player.is_on_floor():
+	elif not player.is_on_floor():
 		if player.velocity.length() > 0.1:
 			play("Jump_Start", 1)
 		return
 	
+
+	
 	# Crouch logic (overrides movement)
-	if is_crouching:
+	elif is_crouching:
 		if ground_speed > 0.1:
 			play("Crouch_Fwd", 1.2)
 		else:
@@ -25,7 +31,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# Normal ground movement
-	if ground_speed > 2:
+	elif ground_speed > 2:
 		if player.move_speed == player.run_speed:
 			play("Sprint", 1)
 		else:
