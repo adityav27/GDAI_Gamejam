@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://br0utmqdj2ymy"]
+[gd_scene load_steps=61 format=4 uid="uid://br0utmqdj2ymy"]
 
 [ext_resource type="Script" uid="uid://b11hugmo3t0a2" path="res://scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Script" uid="uid://c2yontx23cpb1" path="res://scripts/animation_manager.gd" id="2_hjaqi"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bpwk6wv570h67" path="res://assets/progress_bar/bg.png" id="4_s4jxa"]
 [ext_resource type="Texture2D" uid="uid://c6fvy535spilv" path="res://assets/progress_bar/red.png" id="5_hp4bs"]
 [ext_resource type="Texture2D" uid="uid://oytd2hg43xkn" path="res://assets/progress_bar/blue.png" id="5_oh5ij"]
+[ext_resource type="Script" uid="uid://c2pw05uryfgg6" path="res://scene/pickup_manager.gd" id="7_hp4bs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cjepa"]
 resource_name = "M_Main"
@@ -17977,3 +17978,6 @@ offset_right = 284.18793
 offset_bottom = 65.44967
 texture_under = ExtResource("4_s4jxa")
 texture_progress = ExtResource("5_hp4bs")
+
+[node name="pickup_manager" type="Node" parent="."]
+script = ExtResource("7_hp4bs")

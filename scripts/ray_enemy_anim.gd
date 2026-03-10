@@ -5,16 +5,14 @@ extends Node
 @export var _blend_time := 0.2
 
 func _physics_process(delta: float) -> void:
-	# Ensure the enemy script is valid before accessing properties
 	if not enemy: return
 
-	# Access the 'State' enum defined in your new enemy script
 	match enemy.state:
 		enemy.State.IDLE:
 			play("Idle", 1.0)
 			
 		enemy.State.PATROL:
-			play("Walk", 1.0) 
+			play("Walk", 1.0) 	
 			
 		enemy.State.INVESTIGATE:
 			play("Fixing_Kneeling", 1.0)
@@ -29,7 +27,7 @@ func _physics_process(delta: float) -> void:
 			play("Punch_Jab", 1.0)
 
 func play(anim_name: String, speed: float) -> void:
-	# Check if the animation exists to avoid crashing
+
 	if not animation_player.has_animation(anim_name):
 		push_warning("Animation not found: " + anim_name)
 		return
@@ -37,6 +35,5 @@ func play(anim_name: String, speed: float) -> void:
 	if animation_player.current_animation != anim_name:
 		animation_player.play(anim_name, _blend_time)
 		
-	# Update speed even if animation is the same (e.g. going from Walk to Run)
 	if animation_player.current_animation == anim_name:
 		animation_player.speed_scale = speed
