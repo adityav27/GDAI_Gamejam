@@ -10,7 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://bpwk6wv570h67" path="res://assets/progress_bar/bg.png" id="4_s4jxa"]
 [ext_resource type="Texture2D" uid="uid://c6fvy535spilv" path="res://assets/progress_bar/red.png" id="5_hp4bs"]
 [ext_resource type="Texture2D" uid="uid://oytd2hg43xkn" path="res://assets/progress_bar/blue.png" id="5_oh5ij"]
-[ext_resource type="Texture2D" uid="uid://bjskcov57g1nq" path="res://assets/progress_bar/green.png" id="11_ihjo1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cjepa"]
+resource_name = "M_Main"
+cull_mode = 2
+albedo_color = Color(0.9058803, 0.666667, 0.22745131, 1)
+roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5r0wr"]
 resource_name = "M_Joints"
@@ -17983,14 +17988,3 @@ offset_right = 284.18793
 offset_bottom = 65.44967
 texture_under = ExtResource("4_s4jxa")
 texture_progress = ExtResource("5_hp4bs")
-
-[node name="InvisBar" type="TextureProgressBar" parent="CanvasLayer/Node"]
-offset_left = 28.187922
-offset_top = 114.09396
-offset_right = 284.18793
-offset_bottom = 162.09396
-texture_under = ExtResource("4_s4jxa")
-texture_progress = ExtResource("11_ihjo1")
-
-[connection signal="crouched" from="." to="AnimationManager" method="_on_player_crouched"]
-[connection signal="stood" from="." to="AnimationManager" method="_on_player_stood"]

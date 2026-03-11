@@ -13,7 +13,7 @@ extends Node
 @export var zoom_speed := 0.5
 @export var invert_y := false
 
-# --- ADDED (controller only) ---
+# ---(controller only) ---
 @export var joystick_sensi := 2.5
 @export var joystick_deadzone := 0.15
 # --------------------------------
