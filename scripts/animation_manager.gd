@@ -49,8 +49,6 @@ func play(anim: String, speed: float) -> void:
 		animation_player.speed_scale = speed
 		animation_player.play(anim, _blend_time)
 
-
-
 func _on_player_crouched() -> void:
 	is_crouching = true
 	

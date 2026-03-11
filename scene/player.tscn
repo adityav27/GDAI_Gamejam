@@ -1,21 +1,15 @@
-[gd_scene load_steps=64 format=4 uid="uid://br0utmqdj2ymy"]
+[gd_scene load_steps=63 format=4 uid="uid://br0utmqdj2ymy"]
 
 [ext_resource type="Script" uid="uid://b11hugmo3t0a2" path="res://scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Material" uid="uid://b1xupk8bhtkeo" path="res://scene/player0.tres" id="2_g2vtq"]
 [ext_resource type="Script" uid="uid://c2yontx23cpb1" path="res://scripts/animation_manager.gd" id="2_hjaqi"]
 [ext_resource type="Script" uid="uid://nt6n2vmoc35n" path="res://scripts/camera_controller.gd" id="3_fvtld"]
-[ext_resource type="Material" uid="uid://258jg51xsxak" path="res://scene/playerinvis0.tres" id="3_ml7e8"]
 [ext_resource type="Script" uid="uid://dp5d8fdofnbqq" path="res://scene/mannequin.gd" id="4_2fvbb"]
 [ext_resource type="Material" uid="uid://cmw7frf5subyg" path="res://scene/playerinvis.tres" id="4_ml7e8"]
 [ext_resource type="Texture2D" uid="uid://bpwk6wv570h67" path="res://assets/progress_bar/bg.png" id="4_s4jxa"]
 [ext_resource type="Texture2D" uid="uid://c6fvy535spilv" path="res://assets/progress_bar/red.png" id="5_hp4bs"]
 [ext_resource type="Texture2D" uid="uid://oytd2hg43xkn" path="res://assets/progress_bar/blue.png" id="5_oh5ij"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cjepa"]
-resource_name = "M_Main"
-cull_mode = 2
-albedo_color = Color(0.9058803, 0.666667, 0.22745131, 1)
-roughness = 0.5
+[ext_resource type="Texture2D" uid="uid://bjskcov57g1nq" path="res://assets/progress_bar/green.png" id="11_ihjo1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5r0wr"]
 resource_name = "M_Joints"
@@ -17929,7 +17923,7 @@ bones/52/scale = Vector3(1, 1.0000004, 0.99999976)
 [node name="Mannequin" type="MeshInstance3D" parent="visuals/Rig/Skeleton3D"]
 mesh = SubResource("ArrayMesh_c8632")
 skin = SubResource("Skin_tqxfy")
-surface_material_override/0 = ExtResource("3_ml7e8")
+surface_material_override/0 = ExtResource("4_ml7e8")
 surface_material_override/1 = ExtResource("4_ml7e8")
 script = ExtResource("4_2fvbb")
 invis_material = ExtResource("4_ml7e8")
@@ -17988,3 +17982,14 @@ offset_right = 284.18793
 offset_bottom = 65.44967
 texture_under = ExtResource("4_s4jxa")
 texture_progress = ExtResource("5_hp4bs")
+
+[node name="InvisBar" type="TextureProgressBar" parent="CanvasLayer/Node"]
+offset_left = 28.187922
+offset_top = 114.09396
+offset_right = 284.18793
+offset_bottom = 162.09396
+texture_under = ExtResource("4_s4jxa")
+texture_progress = ExtResource("11_ihjo1")
+
+[connection signal="crouched" from="." to="AnimationManager" method="_on_player_crouched"]
+[connection signal="stood" from="." to="AnimationManager" method="_on_player_stood"]

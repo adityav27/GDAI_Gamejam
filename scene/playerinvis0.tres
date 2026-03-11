@@ -1,11 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://258jg51xsxak"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://258jg51xsxak"]
 
-[ext_resource type="Material" uid="uid://b1xupk8bhtkeo" path="res://scene/player0.tres" id="1_kofb6"]
 [ext_resource type="Shader" uid="uid://ih6sejbuh43t" path="res://scene/player.gdshader" id="2_26s70"]
 
 [resource]
 render_priority = 0
-next_pass = ExtResource("1_kofb6")
 shader = ExtResource("2_26s70")
 shader_parameter/distortion_strength = 0.02
 shader_parameter/noise_scale = 10.0

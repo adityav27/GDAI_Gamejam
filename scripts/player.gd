@@ -46,8 +46,8 @@ var last_move_direction = Vector3.BACK
 @export var crouch_hitbox_y := 0.45
 
 @export_group("Invisibility")
-@export var invis_duration := 6.0
-@export var max_invis_uses := 3
+@export var invis_duration := 10.0
+@export var max_invis_uses := 1
 
 @export_group("EnvVariable")
 @export var _gravity = -30.0
