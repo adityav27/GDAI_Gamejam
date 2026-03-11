@@ -5,6 +5,10 @@ extends CharacterBody3D
 @onready var camera_pivot: Node3D = %camera_pivot
 @onready var stamina_bar: TextureProgressBar = $CanvasLayer/Node/StaminaBar
 @onready var health_bar: TextureProgressBar = $CanvasLayer/Node/HealthBar
+@onready var invis_bar: TextureProgressBar = $CanvasLayer/Node/InvisBar
+@onready var ceiling_check: RayCast3D = $CeilingCheck
+@onready var hitbox: CollisionShape3D = $CollisionShape3D
+@onready var invis_visual := $visuals/Rig/Skeleton3D/Mannequin
 
 var last_move_direction = Vector3.BACK
 
@@ -35,10 +39,23 @@ var last_move_direction = Vector3.BACK
 @export var stamina_regen := 15.
 @export var stamina_regen_delay := 2
 
+@export_group("Crouching")
+@export var stand_height := 1.8
+@export var crouch_height := 0.9
+@export var stand_hitbox_y := 0.9
+@export var crouch_hitbox_y := 0.45
+
+@export_group("Invisibility")
+@export var invis_duration := 6.0
+@export var max_invis_uses := 3
+
 @export_group("EnvVariable")
 @export var _gravity = -30.0
 @export var ground_friction := 45
 @export var air_friction := 3.0
+
+signal crouched
+signal stood
 
 var dash_timer := 0.0
 var dash_cooldown_timer := 0.0
@@ -49,8 +66,21 @@ var stamina_regen_timer := 0.0
 var displayed_stamina := 100.0
 var displayed_health := 100.0
 
+var displayed_invis_timer := 100.0
+var invis_timer := 0.0
+var invis_uses_left := 0
+var is_invisible := false
+
+var is_crouching = false
+
 func player():
 	pass
+
+func _ready():
+	displayed_invis_timer = invis_duration
+	invis_timer = invis_duration
+	stop_invisibility()
+	invis_uses_left = max_invis_uses
 
 func _process(delta: float) -> void:
 	displayed_stamina = lerp(displayed_stamina, stamina, 8 * delta)
@@ -60,6 +90,12 @@ func _process(delta: float) -> void:
 	displayed_health = lerp(displayed_health, health, 4 * delta)
 	health_bar.value = displayed_health
 	health_bar.max_value = max_health
+		
+	displayed_invis_timer = invis_timer
+	invis_bar.value = displayed_invis_timer
+	invis_bar.max_value = invis_duration
+
+	
 	
 func _physics_process(delta: float) -> void:
 
@@ -81,6 +117,13 @@ func _physics_process(delta: float) -> void:
 		if stamina_regen_timer < 0:
 			stamina_regen_timer = 0
 
+	# ================= INVIS TIMER =================
+	if is_invisible:
+		invis_timer -= delta
+
+		if invis_timer <= 0:
+			stop_invisibility()
+			
 	# ================= INPUT =================
 	var move_input = Input.get_vector("left", "right", "forward", "backward")
 
@@ -92,27 +135,38 @@ func _physics_process(delta: float) -> void:
 
 
 	# ================= DASH INPUT =================
-	if Input.is_action_just_pressed("dash") and dash_cooldown_timer <= 0.0 and is_on_floor()  and stamina > dash_stamina_cost:
-		dash_direction = last_move_direction
-		dash_timer = dash_duration
-		dash_cooldown_timer = dash_cooldown
-		stamina -= dash_stamina_cost
-		is_dashing = true
+	if Input.is_action_just_pressed("dash") and dash_cooldown_timer <= 0.0 and is_on_floor() and not is_crouching:
+			dash_direction = last_move_direction
+			dash_timer = dash_duration
+			dash_cooldown_timer = dash_cooldown
+			stamina -= dash_stamina_cost
+			is_dashing = true
 
 
 	# ================= SPEED =================
 	var is_sprinting := false
 
-	if Input.is_action_pressed("crouch"):
-		move_speed = crouch_speed
+	# ================= CROUCH INPUT =================
+	if Input.is_action_just_pressed("crouch"):
 
-	elif Input.is_action_pressed("run") and stamina > 0:
+		if not is_crouching:
+			crouch()
+
+		else:
+			# prevent standing if something above head
+			if not ceiling_check.is_colliding():
+				stand()
+		
+	elif Input.is_action_pressed("run") and stamina > 0 and not is_crouching:
 		move_speed = run_speed
 		is_sprinting = true
-
+		
 	else:
-		move_speed = walk_speed
-
+		if is_crouching:
+			move_speed = crouch_speed
+		else:
+			move_speed = walk_speed
+			
 	# ================= STAMINA =================
 	# drain stamina while sprinting
 	if is_sprinting and move_direction.length() > 0.1 and stamina > 0:
@@ -125,6 +179,10 @@ func _physics_process(delta: float) -> void:
 
 	# clamp stamina
 	stamina = clamp(stamina, 0.0, max_stamina)
+
+	# ================= INVIS INPUT =================
+	if Input.is_action_just_pressed("invis") and not is_invisible and invis_uses_left > 0:
+		start_invisibility()
 
 
 	# ================= MOVEMENT =================
@@ -173,3 +231,46 @@ func _physics_process(delta: float) -> void:
 		target_angle,
 		turn_speed * delta
 	)
+	
+	
+func crouch():
+	if is_crouching:
+		return
+
+	is_crouching = true
+	move_speed = crouch_speed
+	crouched.emit()
+	var shape = hitbox.shape as CapsuleShape3D
+	shape.height = crouch_height
+	var t = hitbox.transform
+	t.origin.y = crouch_hitbox_y
+	hitbox.transform = t
+	
+func stand():
+	if ceiling_check.is_colliding():
+		return
+	is_crouching = false
+	move_speed = walk_speed
+	stood.emit()
+
+	var shape = hitbox.shape as CapsuleShape3D
+	shape.height = stand_height
+
+	var t = hitbox.transform
+	t.origin.y = stand_hitbox_y
+	hitbox.transform = t
+
+func start_invisibility():
+	is_invisible = true
+	invis_timer = invis_duration
+	invis_uses_left -= 1
+
+	invis_visual.enabled = true
+
+
+func stop_invisibility():
+
+	is_invisible = false
+	invis_timer = 0
+
+	invis_visual.enabled = false

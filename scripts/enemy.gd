@@ -14,6 +14,8 @@ enum States{attack,idle,chase,death}
 var target =null 
 var gravity = -30
 
+signal is_player_detected(state: bool)
+
 func _physics_process(delta: float) -> void:
 	if !is_on_floor():
 		velocity.y+=gravity*delta
@@ -42,6 +44,7 @@ func _on_chase_area_body_entered(body: Node3D) -> void:
 	if body.has_method("player"):
 		target=body
 		state = States.chase
+		is_player_detected.emit(true)
 
 func _on_chase_area_body_exited(body: Node3D) -> void:
 	if body.has_method("player"):

@@ -90,6 +90,24 @@ material_override = SubResource("StandardMaterial3D_kaebr")
 use_collision = true
 size = Vector3(7.4832764, 2, 6.4624023)
 
+[node name="ceiling1" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.54195, 1.6482496, -9.634303)
+material_override = SubResource("StandardMaterial3D_kaebr")
+use_collision = true
+size = Vector3(4.0761414, 0.80566406, 8.449463)
+
+[node name="ceiling3" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.380836, 0.0060727596, -9.634303)
+material_override = SubResource("StandardMaterial3D_kaebr")
+use_collision = true
+size = Vector3(4.0761414, 0.80566406, 8.449463)
+
+[node name="ceiling2" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.459664, 0.82205296, -9.634303)
+material_override = SubResource("StandardMaterial3D_kaebr")
+use_collision = true
+size = Vector3(4.0761414, 0.80566406, 8.449463)
+
 [node name="wall" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.10375, -50.59675)
 material_override = SubResource("StandardMaterial3D_ok5di")

@@ -7,9 +7,10 @@ extends Node
 @export_group("AnimationSettings")
 @export var _blend_time = 0.2
 
+var is_crouching = false
+
 func _physics_process(delta: float) -> void:
 	var ground_speed = player.velocity.length()
-	var is_crouching = Input.is_action_pressed("crouch")
 	var t_pose = Input.is_action_pressed("tpose")
 	
 	var stamina = stamina_bar.value
@@ -47,3 +48,11 @@ func play(anim: String, speed: float) -> void:
 	if animation_player.current_animation != anim:
 		animation_player.speed_scale = speed
 		animation_player.play(anim, _blend_time)
+
+
+
+func _on_player_crouched() -> void:
+	is_crouching = true
+	
+func _on_player_stood() -> void:
+	is_crouching = false
