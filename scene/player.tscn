@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://br0utmqdj2ymy"]
+[gd_scene load_steps=66 format=4 uid="uid://br0utmqdj2ymy"]
 
 [ext_resource type="Script" uid="uid://b11hugmo3t0a2" path="res://scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Material" uid="uid://b1xupk8bhtkeo" path="res://scene/player0.tres" id="2_g2vtq"]
@@ -9,7 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://bpwk6wv570h67" path="res://assets/progress_bar/bg.png" id="4_s4jxa"]
 [ext_resource type="Texture2D" uid="uid://c6fvy535spilv" path="res://assets/progress_bar/red.png" id="5_hp4bs"]
 [ext_resource type="Texture2D" uid="uid://oytd2hg43xkn" path="res://assets/progress_bar/blue.png" id="5_oh5ij"]
+[ext_resource type="Script" uid="uid://bdk0blcaae5mv" path="res://scene/node.gd" id="11_dk1vr"]
 [ext_resource type="Texture2D" uid="uid://bjskcov57g1nq" path="res://assets/progress_bar/green.png" id="11_ihjo1"]
+[ext_resource type="AudioStream" uid="uid://dd87v47qmpyxj" path="res://audio/walk.wav" id="12_34jf3"]
+[ext_resource type="AudioStream" uid="uid://qivyeyigadl1" path="res://audio/jump.wav" id="13_u7b46"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5r0wr"]
 resource_name = "M_Joints"
@@ -17990,6 +17993,18 @@ offset_right = 284.18793
 offset_bottom = 162.09396
 texture_under = ExtResource("4_s4jxa")
 texture_progress = ExtResource("11_ihjo1")
+
+[node name="sfx_manager" type="Node" parent="."]
+script = ExtResource("11_dk1vr")
+
+[node name="Run" type="AudioStreamPlayer3D" parent="sfx_manager"]
+stream = ExtResource("12_34jf3")
+
+[node name="Walk" type="AudioStreamPlayer3D" parent="sfx_manager"]
+stream = ExtResource("12_34jf3")
+
+[node name="Jump" type="AudioStreamPlayer3D" parent="sfx_manager"]
+stream = ExtResource("13_u7b46")
 
 [connection signal="crouched" from="." to="AnimationManager" method="_on_player_crouched"]
 [connection signal="stood" from="." to="AnimationManager" method="_on_player_stood"]
