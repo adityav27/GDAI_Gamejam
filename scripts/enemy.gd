@@ -124,6 +124,7 @@ func _on_attack_area_body_entered(body: Node3D) -> void:
 			attack_timer = attack_duration
 			pending_exit = false
 			state = States.attack
+			body.get_node("sfx_manager").play_hurt()
 		
 func _on_attack_area_body_exited(body: Node3D) -> void:
 	body_target = body

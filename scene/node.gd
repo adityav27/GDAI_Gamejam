@@ -6,7 +6,9 @@ extends Node
 @onready var sfx_run: AudioStreamPlayer3D = $Run
 @onready var sfx_walk: AudioStreamPlayer3D = $Walk
 @onready var sfx_jump: AudioStreamPlayer3D = $Jump
-
+@onready var sfx_gameOver: AudioStreamPlayer3D =$GameOver
+@onready var sfx_hurt: AudioStreamPlayer3D =$Hurt
+@onready var sfx_punch: AudioStreamPlayer3D =$Punch
 var is_crouching = false
 var _current_sfx = ""
 
@@ -14,8 +16,12 @@ func _physics_process(delta: float) -> void:
 	var ground_speed = player.velocity.length()
 	var t_pose = Input.is_action_pressed("tpose")
 	var stamina = stamina_bar.value
-
-	if t_pose:
+	
+	
+	if global_vars.is_player_dead:
+		play("Gameover")
+		return
+	elif t_pose:
 		stop_all()
 
 
@@ -58,6 +64,9 @@ func play(sfx_name: String) -> void:
 			sfx_walk.play()
 		"Jump":
 			sfx_jump.play()
+		"Gameover":
+			BgMusic.player.stop()
+			sfx_gameOver.play()
 
 func stop_all() -> void:
 	_current_sfx = ""
@@ -70,3 +79,9 @@ func _on_player_crouched() -> void:
 
 func _on_player_stood() -> void:
 	is_crouching = false
+
+func play_hurt() -> void:
+	sfx_hurt.play()
+
+func play_punch() -> void:
+	sfx_punch.play()
