@@ -17,6 +17,8 @@ func _physics_process(delta: float) -> void:
 		
 		enemy.States.search:
 			play("Look Around", 1)
+			await animation_player.animation_finished
+			enemy.state = enemy.States.idle
 
 		enemy.States.attack:
 			if 	enemy.is_player_in_attack_zone and is_attacking_finished:

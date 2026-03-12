@@ -1,6 +1,6 @@
 extends Node
 
-@onready var animation_player: AnimationPlayer = $"../Black Enemy/AnimationPlayer"
+@onready var animation_player: AnimationPlayer = $"../red enemy/AnimationPlayer"
 @onready var enemy: CharacterBody3D = $".."
 @export var _blend_time := 0.2
 
@@ -15,16 +15,16 @@ func _physics_process(delta: float) -> void:
 			play("Walk", 1.0) 	
 			
 		enemy.State.INVESTIGATE:
-			play("look Around", 1.0)
+			play("Look Around", 1.0)
 			
 		enemy.State.RETURN:
 			play("Walk", 1.0)
 
 		enemy.State.CHASE:
-			play("run", 1.2)
+			play("Run", 1.2)
 
 		enemy.State.ATTACK:
-			play("punch", 1.0)
+			play("Punch", 1.0)
 
 func play(anim_name: String, speed: float) -> void:
 

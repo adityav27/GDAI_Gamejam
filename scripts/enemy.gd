@@ -32,15 +32,21 @@ var body_target : Node3D
 signal player_detected(state: bool)
 
 func _process(delta: float) -> void:
-	if is_player_in_chase_zone:
+	if is_player_in_chase_zone and not is_player_in_attack_zone and is_player_detected:
 		if global_vars.is_player_invisible:
 			state = States.search
 			
 		else:
 			state = States.chase
 			target = body_target
-	else:
+	elif is_player_in_attack_zone:
+		state = States.attack
+	
+	elif not is_player_in_chase_zone:
 		state = States.idle
+	
+	if not global_vars.is_player_invisible and is_player_in_chase_zone:
+		is_player_detected = true 
 
 func _physics_process(delta: float) -> void:
 	# Lose target if player becomes invisible
@@ -66,7 +72,6 @@ func _physics_process(delta: float) -> void:
 			state_timer = 3.0
 			_stop_movement(delta)
 			state_timer -= delta
-			print(state_timer)
 			if state_timer <= 0.0:
 				state = States.idle
 						
@@ -104,6 +109,7 @@ func _on_chase_area_body_entered(body: Node3D) -> void:
 
 func _on_chase_area_body_exited(body: Node3D) -> void:
 	is_player_in_chase_zone = false
+	is_player_detected = false
 	if body.has_method("player"):
 		target = null
 		state = States.idle
@@ -122,7 +128,6 @@ func _on_attack_area_body_entered(body: Node3D) -> void:
 func _on_attack_area_body_exited(body: Node3D) -> void:
 	body_target = body
 	is_player_in_attack_zone = false
-	is_player_detected = false
 	if body.has_method("player"):
 		if is_attacking:
 			target = body

@@ -273,9 +273,8 @@ func start_invisibility():
 
 func stop_invisibility():
 	is_invisible = false
-	global_vars.is_player_invisible = true
+	global_vars.is_player_invisible = false
 	invis_timer = 0
-
 	invis_visual.enabled = false
 	
 func _on_damage_player(damage):
