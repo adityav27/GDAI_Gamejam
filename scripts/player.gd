@@ -101,6 +101,10 @@ func _process(delta: float) -> void:
 	
 	if health <= 0.0:
 		global_vars.is_player_dead = true
+		#await $sfx_manager/GameOver.finished()
+		await get_tree().create_timer(1.9).timeout
+		get_tree().change_scene_to_file("res://scene/death_menu.tscn")
+		
 	
 	
 func _physics_process(delta: float) -> void:
@@ -282,3 +286,5 @@ func stop_invisibility():
 	
 func _on_damage_player(damage):
 	health -= damage
+	if health > 0.0:
+		$sfx_manager.play_hurt()

@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="3D_Prototype"
-run/main_scene="uid://cjr2dd8y3m7d"
+run/main_scene="uid://ctiq6vmrok1px"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
 [autoload]
 
 global_vars="*res://autoloads/global_vars.gd"
+BgMusic="*res://scene/bg_music.tscn"
 
 [editor_plugins]
 

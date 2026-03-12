@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dphy23dq6oxxj"]
+
+[ext_resource type="Script" uid="uid://byxqpnlkm1bjd" path="res://scene/bg_music.gd" id="1_ghd25"]
+[ext_resource type="AudioStream" uid="uid://uylf2jmse1ch" path="res://audio/the_mountain-space-438391.ogg" id="1_tqyce"]
+
+[node name="BgMusic" type="Node"]
+script = ExtResource("1_ghd25")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_tqyce")
+volume_db = -6.0
+autoplay = true

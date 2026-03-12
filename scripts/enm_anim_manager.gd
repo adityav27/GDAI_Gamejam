@@ -31,10 +31,8 @@ func _physics_process(delta: float) -> void:
 			play("Look Around",1)
 
 		enemy.States.attack:
-
 			if animation_player.current_animation != "Punch":
 				play("Punch",1.3)
-
 				await animation_player.animation_finished
 
 				if enemy.is_player_in_attack_zone:
