@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtawq5otwebtg"]
+[gd_scene load_steps=9 format=3 uid="uid://dtawq5otwebtg"]
 
 [ext_resource type="Script" uid="uid://exd0ab8u2qcq" path="res://scene/main_menu.gd" id="1_3er1b"]
 [ext_resource type="PackedScene" uid="uid://dmm365f4a6kry" path="res://scene/fade_transitn.tscn" id="2_hxu56"]
+[ext_resource type="PackedScene" uid="uid://bkc6o4kf6qqep" path="res://assets/alien structure/SM_APP_Alien_blockE.glb" id="3_2fwvj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m4svf"]
 bg_color = Color(1, 1, 1, 1)
@@ -43,6 +44,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3er1b")
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer"]
+transform = Transform3D(-0.093743555, 0, -0.9955964, 0, 1, 0, 0.9955964, 0, -0.093743555, -0.10644972, 5.4381237, 12.262741)
+fov = 179.0
+
 [node name="Fade_Transition" parent="." instance=ExtResource("2_hxu56")]
 visible = false
 layout_mode = 0
@@ -58,15 +68,9 @@ grow_vertical = 1
 
 [node name="Timer" type="Timer" parent="Fade_Transition"]
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = -573.0
-offset_top = -325.0
-offset_right = 573.0
-offset_bottom = 323.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -80,7 +84,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
 
-[node name="Start" type="Button" parent="VBoxContainer"]
+[node name="Start" type="Button" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -97,7 +101,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2fwvj")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_0iwki")
 text = "Start"
 
-[node name="Levels" type="Button" parent="VBoxContainer"]
+[node name="Levels" type="Button" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -116,7 +120,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_0iwki")
 text = "Levels
 "
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
+[node name="Quit" type="Button" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -135,22 +139,20 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_0iwki")
 text = "Quit
 "
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -297.0
-offset_top = -298.0
-offset_right = 309.0
-offset_bottom = -161.0
-grow_horizontal = 2
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 264.0
+offset_top = 21.0
+offset_right = 870.0
+offset_bottom = 158.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 100
 text = "Game Name"
 uppercase = true
 
+[node name="SM_APP_Alien_blockE" parent="." instance=ExtResource("3_2fwvj")]
+transform = Transform3D(-0.006038792, 0, -0.99998176, 0, 1, 0, 0.99998176, 0, -0.006038792, 1.609416, -6.2707005, -27.83289)
+
 [connection signal="timeout" from="Fade_Transition/Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="VBoxContainer/Levels" to="." method="_on_levels_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Levels" to="." method="_on_levels_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
