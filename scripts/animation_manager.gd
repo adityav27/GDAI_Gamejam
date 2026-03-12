@@ -26,9 +26,7 @@ func _physics_process(delta: float) -> void:
 		if player.velocity.length() > 0.1:
 			play("Jumping Up", 1)
 		return
-	
-
-	
+		
 	# Crouch logic (overrides movement)
 	elif is_crouching:
 		if ground_speed > 0.1:
@@ -46,8 +44,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		play("Idle", 1)
 	
-
-
 
 func play(anim: String, speed: float) -> void:
 	if animation_player.current_animation != anim:

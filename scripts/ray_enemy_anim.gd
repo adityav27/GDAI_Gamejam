@@ -4,6 +4,8 @@ extends Node
 @onready var enemy: CharacterBody3D = $".."
 @export var _blend_time := 0.2
 
+var is_attack_finished := true
+
 func _physics_process(delta: float) -> void:
 	if not enemy: return
 
@@ -24,7 +26,15 @@ func _physics_process(delta: float) -> void:
 			play("Run", 1.2)
 
 		enemy.State.ATTACK:
-			play("Punch", 1.0)
+			if animation_player.current_animation != "Punch":
+				play("Punch",1.3)
+				await animation_player.animation_finished
+				
+				if enemy.is_player_in_attack_zone:
+					global_vars.damage_player.emit(10)
+
+				#enemy.change_state(enemy.next_state)
+
 
 func play(anim_name: String, speed: float) -> void:
 

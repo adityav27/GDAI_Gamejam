@@ -141,7 +141,7 @@ func _on_attack_area_body_exited(body: Node3D) -> void:
 func change_state(new_state):
 	if state == new_state:
 		return
-
+		
 	state = new_state
 
 

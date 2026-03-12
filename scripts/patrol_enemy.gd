@@ -44,6 +44,8 @@ var attack_timer: float = 0.0
 var path_update_timer: float = 0.0
 const PATH_UPDATE_INTERVAL: float = 0.1
 
+var is_player_in_attack_zone := false
+
 func _ready() -> void:
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
@@ -104,20 +106,32 @@ func _state_patrol(delta: float) -> void:
 	if _can_see_player(): _enter_state(State.CHASE)
 
 func _state_investigate(delta: float) -> void:
+	if not nav_agent.is_navigation_finished():
+		_move_towards_target(speed_walk, delta)
+		return
+
 	_stop_movement(delta)
 	state_timer -= delta
-	visuals.rotate_y(1.0 * delta) 
+	visuals.rotate_y(1.5 * delta)
+
 	if state_timer <= 0.0:
 		_enter_state(State.RETURN)
-	if _can_see_player(): _enter_state(State.CHASE)
+
+	if _can_see_player():
+		_enter_state(State.CHASE)
 
 func _state_chase(delta: float) -> void:
 	if not target:
 		_enter_state(State.RETURN)
 		return
 
-	# Target Locking
 	var can_see = _can_see_player(true)
+
+	if global_vars.is_player_invisible:
+		last_known_position = target.global_position
+		nav_agent.target_position = last_known_position
+		_enter_state(State.INVESTIGATE)
+		return
 	
 	if can_see:
 		last_known_position = target.global_position
@@ -137,6 +151,9 @@ func _state_chase(delta: float) -> void:
 			_move_towards_target(speed_run, delta)
 
 func _state_attack(delta: float) -> void:
+	if global_vars.is_player_invisible:
+		_enter_state(State.INVESTIGATE)
+		return
 	_stop_movement(delta)
 	if target:
 		_face_target(target.global_position, delta)
@@ -169,6 +186,7 @@ func _enter_state(new_state: State) -> void:
 			nav_agent.target_position = patrol_points[patrol_index].global_position
 		State.INVESTIGATE:
 			state_timer = investigate_wait_time
+			nav_agent.target_position = last_known_position
 		State.ATTACK:
 			attack_timer = attack_duration
 		State.CHASE:
@@ -218,6 +236,8 @@ func _face_target(pos: Vector3, delta: float) -> void:
 # VISION SYSTEM
 
 func _can_see_player(ignore_fov: bool = false) -> bool:
+	if global_vars.is_player_invisible:
+		return false
 	if not target:
 		return false
 	var distance = global_position.distance_to(target.global_position)
@@ -246,3 +266,14 @@ func _handle_vision_ray_rotation() -> void:
 	var new_dir = ray_forward.slerp(to_player, 0.2).normalized()
 	if new_dir.length() > 0.001:
 		vision_ray.look_at(vision_ray.global_position + new_dir, Vector3.UP)
+		
+
+
+func _on_attack_area_body_entered(body: Node3D) -> void:
+	if body.has_method("player"):
+		is_player_in_attack_zone = true
+
+
+func _on_attack_area_body_exited(body: Node3D) -> void:
+	if body.has_method("player"):
+		is_player_in_attack_zone = false
