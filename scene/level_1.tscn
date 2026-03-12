@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://cpeasqt0kauup"]
+
+[ext_resource type="Shader" uid="uid://qff1aaaiocq2" path="res://shader/stylized_sky.gdshader" id="1_53ndp"]
+[ext_resource type="Script" uid="uid://eulxhhj45555" path="res://scene/level_1.gd" id="1_70cbr"]
+[ext_resource type="PackedScene" uid="uid://br0utmqdj2ymy" path="res://scene/player.tscn" id="1_tw77e"]
+[ext_resource type="Texture2D" uid="uid://dlhb3vu4nvawl" path="res://assets/my textures/Rock049_1K-PNG/Rock049_1K-PNG_Color.png" id="1_xesoj"]
+[ext_resource type="Texture2D" uid="uid://c7ps63rqrxdho" path="res://assets/my textures/Rock049_1K-PNG/Rock049_1K-PNG_NormalGL.png" id="2_xesoj"]
+[ext_resource type="Texture2D" uid="uid://buv55j4v1ejle" path="res://assets/my textures/Rock049_1K-PNG/Rock049_1K-PNG_Roughness.png" id="3_70cbr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_70cbr"]
+shader = ExtResource("1_53ndp")
+shader_parameter/sky_top_color = Color(0.05, 0.05, 0.1, 1)
+shader_parameter/sky_mid_color = Color(0.08, 0.07, 0.11, 1)
+shader_parameter/sky_horizon_color = Color(0.15, 0.05, 0.2, 1)
+shader_parameter/horizon_glow_color = Color(0.2, 0.55, 0.3, 1)
+shader_parameter/nebula_color_a = Color(0.45, 0.1, 0.55, 1)
+shader_parameter/nebula_color_b = Color(0.1, 0.55, 0.45, 1)
+shader_parameter/nebula_color_c = Color(0.7, 0.25, 0.1, 1)
+shader_parameter/nebula_coverage = 0.48
+shader_parameter/nebula_opacity = 0.72
+shader_parameter/nebula_speed = 0.010000000475
+shader_parameter/nebula_scale = 1.4
+shader_parameter/star_density = 0.07200000272148
+shader_parameter/star_twinkle = 0.2050000097375
+shader_parameter/show_giant = true
+shader_parameter/giant_color_a = Color(0.55, 0.35, 0.12, 1)
+shader_parameter/giant_color_b = Color(0.25, 0.15, 0.38, 1)
+shader_parameter/giant_direction = Vector3(-0.55, 0.38, -0.75)
+shader_parameter/giant_size = 0.09
+shader_parameter/giant_glow_size = 0.06
+shader_parameter/giant_glow_color = Color(0.4, 0.2, 0.05, 1)
+
+[sub_resource type="Sky" id="Sky_xesoj"]
+sky_material = SubResource("ShaderMaterial_70cbr")
+
+[sub_resource type="Environment" id="Environment_3flxk"]
+background_mode = 2
+sky = SubResource("Sky_xesoj")
+ambient_light_source = 2
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_anisotropy = 0.66
+volumetric_fog_sky_affect = 0.14
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lsoxn"]
+albedo_texture = ExtResource("1_xesoj")
+roughness_texture = ExtResource("3_70cbr")
+normal_enabled = true
+normal_texture = ExtResource("2_xesoj")
+
+[node name="Level1" type="Node3D"]
+script = ExtResource("1_70cbr")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3flxk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301272, 0.25000003, 0.35355344, -0.17677678, 0.91855866, -0.35355335, 0.8838835, 0.30618635, -1, -2, 5)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(35, 1, 35)
+material = SubResource("StandardMaterial3D_lsoxn")
+
+[node name="player" parent="." instance=ExtResource("1_tw77e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85761833, 0.7779645, -2.1102612)
