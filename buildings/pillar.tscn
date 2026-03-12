@@ -59,6 +59,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.096811175, 0.27617407, 0.00
 
 [node name="Mesh" type="MeshInstance3D" parent="SM_APP_Alien_blockB"]
 lod_bias = 0.2
-visibility_range_end = 50.0
+visibility_range_end = 100.0
 mesh = SubResource("ArrayMesh_2fcix")
 skeleton = NodePath("")
