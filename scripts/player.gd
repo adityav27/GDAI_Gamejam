@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@onready var visuals: Node3D = %visuals
+@onready var visuals: Node3D = $player
 @onready var camera: Camera3D = %Camera3D
 @onready var camera_pivot: Node3D = %camera_pivot
 @onready var stamina_bar: TextureProgressBar = $CanvasLayer/Node/StaminaBar
@@ -8,7 +8,7 @@ extends CharacterBody3D
 @onready var invis_bar: TextureProgressBar = $CanvasLayer/Node/InvisBar
 @onready var ceiling_check: RayCast3D = $CeilingCheck
 @onready var hitbox: CollisionShape3D = $CollisionShape3D
-@onready var invis_visual := $visuals/Rig/Skeleton3D/Mannequin
+@onready var invis_visual := $player/Armature/Skeleton3D/vanguard_Mesh
 
 var last_move_direction = Vector3.BACK
 
@@ -81,6 +81,9 @@ func _ready():
 	invis_timer = invis_duration
 	stop_invisibility()
 	invis_uses_left = max_invis_uses
+	
+	global_vars.damage_player.connect(_on_damage_player)
+	global_vars.is_player_invisible = false
 
 func _process(delta: float) -> void:
 	displayed_stamina = lerp(displayed_stamina, stamina, 8 * delta)
@@ -176,7 +179,7 @@ func _physics_process(delta: float) -> void:
 	# regen stamina when not sprinting
 	if stamina_regen_timer == 0 and not is_sprinting:
 		stamina += stamina_regen * delta
-
+	
 	# clamp stamina
 	stamina = clamp(stamina, 0.0, max_stamina)
 
@@ -262,15 +265,18 @@ func stand():
 
 func start_invisibility():
 	is_invisible = true
+	global_vars.is_player_invisible = true
 	invis_timer = invis_duration
 	invis_uses_left -= 1
-
 	invis_visual.enabled = true
 
 
 func stop_invisibility():
-
 	is_invisible = false
+	global_vars.is_player_invisible = true
 	invis_timer = 0
 
 	invis_visual.enabled = false
+	
+func _on_damage_player(damage):
+	health -= damage

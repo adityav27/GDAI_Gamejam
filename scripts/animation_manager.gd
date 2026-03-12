@@ -1,7 +1,7 @@
 extends Node
 
 @onready var player: CharacterBody3D = $".."
-@onready var animation_player: AnimationPlayer = $"../visuals/AnimationPlayer"
+@onready var animation_player: AnimationPlayer = $"../player/AnimationPlayer"
 @onready var stamina_bar: TextureProgressBar = $"../CanvasLayer/Node/StaminaBar"
 
 @export_group("AnimationSettings")
@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 	# Air logic
 	elif not player.is_on_floor():
 		if player.velocity.length() > 0.1:
-			play("Jump_Start", 1)
+			play("Jumping Up", 1)
 		return
 	
 
@@ -29,17 +29,17 @@ func _physics_process(delta: float) -> void:
 	# Crouch logic (overrides movement)
 	elif is_crouching:
 		if ground_speed > 0.1:
-			play("Crouch_Fwd", 1.2)
+			play("Crouch Walking", 1.2)
 		else:
-			play("Crouch_Idle", 1)
+			play("Crouch Idle", 1)
 		return
 	
 	# Normal ground movement
 	elif ground_speed > 2:
 		if (player.move_speed == player.run_speed) and (stamina > 1):
-			play("Sprint", 1)
+			play("Running", 1)
 		else:
-			play("Walk", 1.2)
+			play("Walking", 1.2)
 	else:
 		play("Idle", 1)
 

@@ -5,7 +5,7 @@ extends CharacterBody3D
 # --------------------
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var vision_ray: RayCast3D = $VisionRay 
-@onready var visuals: Node3D = $Visuals
+@onready var visuals: Node3D = $"Black Enemy"
 
 # --------------------
 # CONFIGURATION

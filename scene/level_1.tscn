@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cpeasqt0kauup"]
+[gd_scene load_steps=13 format=3 uid="uid://cpeasqt0kauup"]
 
 [ext_resource type="Shader" uid="uid://qff1aaaiocq2" path="res://shader/stylized_sky.gdshader" id="1_53ndp"]
 [ext_resource type="Script" uid="uid://eulxhhj45555" path="res://scene/level_1.gd" id="1_70cbr"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dlhb3vu4nvawl" path="res://assets/my textures/Rock049_1K-PNG/Rock049_1K-PNG_Color.png" id="1_xesoj"]
 [ext_resource type="Texture2D" uid="uid://c7ps63rqrxdho" path="res://assets/my textures/Rock049_1K-PNG/Rock049_1K-PNG_NormalGL.png" id="2_xesoj"]
 [ext_resource type="Texture2D" uid="uid://buv55j4v1ejle" path="res://assets/my textures/Rock049_1K-PNG/Rock049_1K-PNG_Roughness.png" id="3_70cbr"]
+[ext_resource type="PackedScene" uid="uid://cb3yl4d82rnts" path="res://scene/enemy.tscn" id="7_x17xt"]
+[ext_resource type="PackedScene" uid="uid://dxahcui3dak6u" path="res://scene/patrol_enemy.tscn" id="8_c1764"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_70cbr"]
 shader = ExtResource("1_53ndp")
@@ -66,3 +68,9 @@ material = SubResource("StandardMaterial3D_lsoxn")
 
 [node name="player" parent="." instance=ExtResource("1_tw77e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85761833, 0.7779645, -2.1102612)
+
+[node name="Enemy" parent="." instance=ExtResource("7_x17xt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, -12)
+
+[node name="Patrol_Enemy" parent="." instance=ExtResource("8_c1764")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 4)

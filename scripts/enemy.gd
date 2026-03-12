@@ -1,8 +1,8 @@
 extends CharacterBody3D
 @export var navAgent: NavigationAgent3D
-@onready var visuals: Node3D = $Visuals
+@onready var visuals: Node3D = $"red enemy"
 
-enum States{attack,idle,chase,death}
+enum States{attack,idle,search,chase,death}
 @export_group("Enemy Stats")
 @export var speed=5.0
 @export var acc=6.0
@@ -11,6 +11,14 @@ enum States{attack,idle,chase,death}
 @export var attack_radius=1.087
 @export var hp=100
 @export var state=States.idle
+@export var acceleration: float = 8.0
+
+var is_player_in_attack_zone := false
+var is_player_in_chase_zone := false
+var is_player_detected := false
+
+var state_timer := 0.0
+
 var target = null 
 var gravity = -30
 var is_attacking: bool = false
@@ -18,9 +26,29 @@ var pending_exit: bool = false
 @export var attack_duration: float = 1.0
 var attack_timer: float = 0.0
 
-signal is_player_detected(state: bool)
+var body_target : Node3D
+
+
+signal player_detected(state: bool)
+
+func _process(delta: float) -> void:
+	if is_player_in_chase_zone:
+		if global_vars.is_player_invisible:
+			state = States.search
+			
+		else:
+			state = States.chase
+			target = body_target
+	else:
+		state = States.idle
 
 func _physics_process(delta: float) -> void:
+	# Lose target if player becomes invisible
+	if target != null and global_vars.is_player_invisible:
+		target = null
+		state = States.idle
+
+	
 	if !is_on_floor():
 		velocity.y += gravity * delta
 	if target == null and state == States.chase:
@@ -34,6 +62,14 @@ func _physics_process(delta: float) -> void:
 	match state:
 		States.idle:
 			velocity = Vector3.ZERO
+		States.search:
+			state_timer = 3.0
+			_stop_movement(delta)
+			state_timer -= delta
+			print(state_timer)
+			if state_timer <= 0.0:
+				state = States.idle
+						
 		States.chase:
 			navAgent.target_position = target.global_position
 			var direction = navAgent.get_next_path_position() - global_position
@@ -57,24 +93,36 @@ func on_attack_finished() -> void:
 			state = States.idle
 
 func _on_chase_area_body_entered(body: Node3D) -> void:
+	body_target = body
 	if body.has_method("player"):
-		target = body
-		state = States.chase
-		is_player_detected.emit(true)
+		is_player_in_chase_zone = true
+		if not global_vars.is_player_invisible:
+			is_player_detected = true
+			target = body
+			state = States.chase
+
 
 func _on_chase_area_body_exited(body: Node3D) -> void:
+	is_player_in_chase_zone = false
 	if body.has_method("player"):
 		target = null
 		state = States.idle
 
 func _on_attack_area_body_entered(body: Node3D) -> void:
-	if body.has_method("player") and not is_attacking:
-		is_attacking = true
-		attack_timer = attack_duration
-		pending_exit = false
-		state = States.attack
+	body_target = body
+	if body.has_method("player"):	
+		is_player_in_attack_zone = true
+
+		if not is_attacking and not global_vars.is_player_invisible:
+			is_attacking = true
+			attack_timer = attack_duration
+			pending_exit = false
+			state = States.attack
 		
 func _on_attack_area_body_exited(body: Node3D) -> void:
+	body_target = body
+	is_player_in_attack_zone = false
+	is_player_detected = false
 	if body.has_method("player"):
 		if is_attacking:
 			target = body
@@ -82,3 +130,10 @@ func _on_attack_area_body_exited(body: Node3D) -> void:
 		else:
 			target = body
 			state = States.chase
+
+
+
+			
+func _stop_movement(delta: float) -> void:
+	velocity.x = lerp(velocity.x, 0.0, acceleration * delta)
+	velocity.z = lerp(velocity.z, 0.0, acceleration * delta)
