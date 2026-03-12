@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmaad3ki4i2bv"]
+
+[ext_resource type="PackedScene" uid="uid://dbbot0ijhntx1" path="res://assets/level/assets/spaceship/Transport Shuttle_fbx.fbx" id="1_gelfj"]
+
+[node name="Transport Shuttle_fbx" instance=ExtResource("1_gelfj")]
+
+[node name="Hemi" parent="." index="0"]
+visible = false
+
+[node name="All_Legs_Bone" parent="." index="1"]
+visible = false
+
+[node name="Shuttle_All_Mover" parent="." index="3"]
+visible = false
+
+[node name="Door_Bone_Open" parent="." index="4"]
+visible = false
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(-0.00886488, 0, 0.5399999)
+bones/0/rotation = Quaternion(0.50000006, -0.49999994, 0.49999994, 0.5)
+bones/1/rotation = Quaternion(0.7064008, -0.03158878, 0.031589102, 0.7064009)
+bones/3/rotation = Quaternion(-0.031588383, 0.7064012, -0.70640033, -0.031591013)
+bones/5/position = Vector3(3.449892, 0, 2.6045961e-07)
+bones/5/scale = Vector3(0.94613945, 0.94613945, 0.94613945)
+bones/6/position = Vector3(-1.2764165, -4.217024, 2.3754828)
+bones/8/position = Vector3(-1.2764165, -4.217024, -2.3754828)
+bones/10/position = Vector3(-6.3982086, -4.217024, -0.13369028)
+bones/12/position = Vector3(6.4577675, -4.217024, 0.29068705)
+bones/14/rotation = Quaternion(-0.11353061, 0.69793326, 0.11353059, 0.6979333)
+bones/16/rotation = Quaternion(0.6977417, -0.1146955, 0.6977438, 0.11469621)
+bones/18/rotation = Quaternion(0.6574078, -0.6549174, -0.2604124, 0.26661524)
+bones/20/rotation = Quaternion(-0.6426643, 0.64542335, -0.29492837, 0.28883997)
+bones/22/rotation = Quaternion(-0.22350116, 0.22350109, 0.67085665, -0.67085457)
+bones/24/rotation = Quaternion(-0.22350056, 0.2235013, -0.6708557, 0.6708557)
+bones/26/position = Vector3(1.7275665, -1.28632, 3.702906)
+bones/28/position = Vector3(1.7275672, -1.2863202, -3.7029054)
