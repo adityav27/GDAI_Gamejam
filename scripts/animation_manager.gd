@@ -14,8 +14,11 @@ func _physics_process(delta: float) -> void:
 	var t_pose = Input.is_action_pressed("tpose")
 	
 	var stamina = stamina_bar.value
+	
+	if global_vars.is_player_dead:
+		play("Death", 1)
 
-	if t_pose:
+	elif t_pose:
 		play("A_TPose", 1)
 			
 	# Air logic
@@ -42,6 +45,8 @@ func _physics_process(delta: float) -> void:
 			play("Walking", 1.2)
 	else:
 		play("Idle", 1)
+	
+
 
 
 func play(anim: String, speed: float) -> void:

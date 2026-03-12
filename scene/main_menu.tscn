@@ -1,7 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtawq5otwebtg"]
+[gd_scene load_steps=12 format=3 uid="uid://dtawq5otwebtg"]
 
 [ext_resource type="Script" uid="uid://exd0ab8u2qcq" path="res://scene/main_menu.gd" id="1_3er1b"]
 [ext_resource type="PackedScene" uid="uid://dmm365f4a6kry" path="res://scene/fade_transitn.tscn" id="2_hxu56"]
+[ext_resource type="PackedScene" uid="uid://cn66yxjwinmhu" path="res://assets/level/assets/alien structure/SM_APP_Alien_blockA.glb" id="3_2fwvj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2fwvj"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_0iwki"]
+sky_material = SubResource("ProceduralSkyMaterial_2fwvj")
+
+[sub_resource type="Environment" id="Environment_sepwh"]
+background_mode = 2
+sky = SubResource("Sky_0iwki")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m4svf"]
 bg_color = Color(1, 1, 1, 1)
@@ -43,6 +57,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3er1b")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sepwh")
+
 [node name="Fade_Transition" parent="." instance=ExtResource("2_hxu56")]
 visible = false
 layout_mode = 0
@@ -60,10 +77,10 @@ grow_vertical = 1
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = -573.0
-offset_top = -325.0
-offset_right = 573.0
-offset_bottom = 323.0
+offset_left = 777.0
+offset_top = -95.0
+offset_right = 1923.0
+offset_bottom = 553.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -149,6 +166,12 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 100
 text = "Game Name"
 uppercase = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.55754226, -0.2448587, 0.79321545, 0, 0.9555103, 0.2949577, -0.8301485, -0.16445138, 0.5327374, 0, 8.535873, -0.31490707)
+
+[node name="SM_APP_Alien_blockA" parent="." instance=ExtResource("3_2fwvj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.343637, 0, -3.296329)
 
 [connection signal="timeout" from="Fade_Transition/Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]

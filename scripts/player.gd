@@ -23,7 +23,7 @@ var last_move_direction = Vector3.BACK
 @export var move_speed = 0
 @export var acceleration = 20
 @export var turn_speed = 12
-@export var jump_impulse = 12
+@export var jump_impulse = 8
 
 @export_group("Dash")
 @export var dash_speed = 20
@@ -84,6 +84,7 @@ func _ready():
 	
 	global_vars.damage_player.connect(_on_damage_player)
 	global_vars.is_player_invisible = false
+	global_vars.is_player_dead = false
 
 func _process(delta: float) -> void:
 	displayed_stamina = lerp(displayed_stamina, stamina, 8 * delta)
@@ -97,7 +98,9 @@ func _process(delta: float) -> void:
 	displayed_invis_timer = invis_timer
 	invis_bar.value = displayed_invis_timer
 	invis_bar.max_value = invis_duration
-
+	
+	if health <= 0.0:
+		global_vars.is_player_dead = true
 	
 	
 func _physics_process(delta: float) -> void:
