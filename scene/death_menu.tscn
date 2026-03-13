@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cj2lj6db0yjny"]
+[gd_scene load_steps=16 format=3 uid="uid://cj2lj6db0yjny"]
 
 [ext_resource type="Shader" uid="uid://qff1aaaiocq2" path="res://shader/stylized_sky.gdshader" id="1_motci"]
 [ext_resource type="Texture2D" uid="uid://dlhb3vu4nvawl" path="res://assets/my textures/Rock049_1K-PNG/Rock049_1K-PNG_Color.png" id="2_bv5oc"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cb3yl4d82rnts" path="res://scene/enemy.tscn" id="5_lvfmk"]
 [ext_resource type="PackedScene" uid="uid://dxahcui3dak6u" path="res://scene/patrol_enemy.tscn" id="6_qffdx"]
 [ext_resource type="Script" uid="uid://bltftamd45f1a" path="res://scene/v_box_container.gd" id="7_00rov"]
+[ext_resource type="Theme" uid="uid://ci5bwfvjb3fy2" path="res://Menu.tres" id="7_grx6p"]
 [ext_resource type="StyleBox" uid="uid://ds56enht30cgi" path="res://scene/3D_Menu.tres" id="8_hkip4"]
 
 [sub_resource type="GDScript" id="GDScript_lsoxn"]
@@ -163,22 +164,37 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.80062, 0.41061783, 0.65221
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.161307, 0.88687944, 2.2675438)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 301.0
+offset_top = 478.75
+offset_right = 851.0
+offset_bottom = 478.75
+theme = ExtResource("7_grx6p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -275.0
-offset_top = -135.5
+offset_top = -200.0
 offset_right = 275.0
-offset_bottom = 135.5
+offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 22
 script = ExtResource("7_00rov")
 
-[node name="Levels" type="Button" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "YOU LOSE"
+
+[node name="Levels" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 41
@@ -190,7 +206,7 @@ theme_override_styles/hover_pressed_mirrored = ExtResource("8_hkip4")
 theme_override_styles/focus = ExtResource("8_hkip4")
 text = "Play Again"
 
-[node name="quit" type="Button" parent="VBoxContainer"]
+[node name="quit" type="Button" parent="Control/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 41
@@ -203,5 +219,5 @@ theme_override_styles/focus = ExtResource("8_hkip4")
 text = "Quit
 "
 
-[connection signal="pressed" from="VBoxContainer/Levels" to="VBoxContainer" method="_on_levels_pressed"]
-[connection signal="pressed" from="VBoxContainer/quit" to="VBoxContainer" method="_on_quit_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Levels" to="Control/VBoxContainer" method="_on_levels_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/quit" to="Control/VBoxContainer" method="_on_quit_pressed"]

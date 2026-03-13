@@ -21,7 +21,7 @@ func _process(delta):
 	rotate_y(rotation_speed * delta)
 	
 	if free_self:
-		position = lerp(position, target_body.position, 2 * delta)
+		position = lerp(position, target_body.position, 1.3 * delta)
 		if (target_body.position - position).length() <= 0.5:
 			queue_free()
 

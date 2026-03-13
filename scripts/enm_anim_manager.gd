@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 				await animation_player.animation_finished
 
 				if enemy.is_player_in_attack_zone:
-					global_vars.damage_player.emit(10)
+					global_vars.damage_player.emit(50)
 
 				enemy.change_state(enemy.next_state)
 

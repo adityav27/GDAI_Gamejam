@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://cpeasqt0kauup"]
+[gd_scene load_steps=35 format=4 uid="uid://cpeasqt0kauup"]
 
 [ext_resource type="Shader" uid="uid://qff1aaaiocq2" path="res://shader/stylized_sky.gdshader" id="1_53ndp"]
 [ext_resource type="Script" uid="uid://eulxhhj45555" path="res://scene/level_1.gd" id="1_70cbr"]
@@ -11,8 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://cbqgw5sbfyvic" path="res://assets/my textures/dark_packed_normal_roughness.png" id="12_hs4ge"]
 [ext_resource type="Texture2D" uid="uid://bdw2j5kejiegc" path="res://assets/demo_texture/texture_01.png" id="12_i3j6g"]
 [ext_resource type="Texture2D" uid="uid://x7kwhprpwqkj" path="res://assets/texture/Rock_packed_albedo_height.png" id="13_tlh70"]
+[ext_resource type="PackedScene" uid="uid://cfu8cql14afi" path="res://keycard.tscn" id="14_hidkv"]
 [ext_resource type="Texture2D" uid="uid://v7m0sh1hi8yp" path="res://assets/texture/Rock_packed_normal_roughness.png" id="14_hs4ge"]
 [ext_resource type="PackedScene" uid="uid://cqniohxajpicn" path="res://buildings/pillar.tscn" id="14_tlh70"]
+[ext_resource type="PackedScene" uid="uid://c608co1xxu5c4" path="res://invis_charge.tscn" id="15_hs4ge"]
+[ext_resource type="PackedScene" uid="uid://dek3hllh1w3fd" path="res://health_gen.tscn" id="16_hidkv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_70cbr"]
 shader = ExtResource("1_53ndp")
@@ -340,10 +343,10 @@ size = Vector3(93.5174, 7.975769, 1)
 material = SubResource("StandardMaterial3D_hs4ge")
 
 [node name="player" parent="." instance=ExtResource("1_tw77e")]
-transform = Transform3D(0.1323948, 0, 0.9911969, 0, 1, 0, -0.9911969, 0, 0.1323948, -147.86101, -0.017397285, -77.4047)
+transform = Transform3D(0.1323948, 0, 0.9911969, 0, 1, 0, -0.9911969, 0, 0.1323948, -56.145966, -0.017397285, -72.31027)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.066589355, 9.1552734e-05, -0.14242554)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8616104, 2.5121155, -4.0557404)
 navigation_mesh = SubResource("NavigationMesh_1gcq6")
 
 [node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D"]
@@ -410,3 +413,40 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -151.93561, 0, -137.36981)
 
 [node name="building" parent="building" instance=ExtResource("12_a2j0k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.763077, 0, -25.295074)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="KeyCard" parent="." instance=ExtResource("14_hidkv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -157.4495, 0.9234779, -181.79166)
+
+[node name="KeyCard2" parent="." instance=ExtResource("14_hidkv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -156.31245, 1.0695224, -153.65076)
+key_number = 2
+
+[node name="KeyCard3" parent="." instance=ExtResource("14_hidkv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.07811, 7.638877, -155.67383)
+key_number = 3
+
+[node name="KeyCard4" parent="." instance=ExtResource("14_hidkv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -120.65636, 0.9463687, -162.08838)
+
+[node name="InvisCharge" parent="." instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -148.35829, 0.83490086, -87.4984)
+
+[node name="InvisCharge2" parent="." instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -164.39731, 3.7467527, -174.30074)
+
+[node name="InvisCharge3" parent="." instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.187126, 8.030792, -128.58807)
+
+[node name="HealthGen" parent="." instance=ExtResource("16_hidkv")]
+transform = Transform3D(0.7781774, -0.62804455, 0, 0.62804455, 0.7781774, 0, 0, 0, 1, -145.67056, 0.7415203, -152.84662)
+
+[node name="InvisCharge4" parent="." instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.45248, 1.0622387, -111.123726)
+
+[node name="HealthGen2" parent="." instance=ExtResource("16_hidkv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -136.50414, 0.6421716, -128.34343)
+
+[node name="HealthGen3" parent="." instance=ExtResource("16_hidkv")]
+transform = Transform3D(1, 0, 0, 0, 0.43940616, -0.8982885, 0, 0.8982885, 0.43940616, -188.72287, 0.71720254, -125.338905)

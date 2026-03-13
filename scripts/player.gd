@@ -47,7 +47,7 @@ var last_move_direction = Vector3.BACK
 
 @export_group("Invisibility")
 @export var invis_duration := 10.0
-@export var max_invis_uses := 1
+@export var max_invis_uses := 0
 
 @export_group("EnvVariable")
 @export var _gravity = -30.0
@@ -84,6 +84,7 @@ func _ready():
 	
 	global_vars.damage_player.connect(_on_damage_player)
 	global_vars.regen_player.connect(_on_regen_player)
+	global_vars.add_invis_charge.connect(_on_add_invis_charge)
 	global_vars.is_player_invisible = false
 	global_vars.is_player_dead = false
 
@@ -292,3 +293,6 @@ func _on_damage_player(damage):
 
 func _on_regen_player():
 	health = 100
+
+func _on_add_invis_charge():
+	invis_uses_left += 1

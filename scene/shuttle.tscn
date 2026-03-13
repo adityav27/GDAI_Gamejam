@@ -1,5 +1,6 @@
-[gd_scene load_steps=55 format=4 uid="uid://c22j224vykrch"]
+[gd_scene load_steps=57 format=4 uid="uid://c22j224vykrch"]
 
+[ext_resource type="Script" uid="uid://dx5ntjx558wiq" path="res://scene/shuttle.gd" id="1_1qfes"]
 [ext_resource type="Texture2D" uid="uid://wbfu4faqkhcr" path="res://assets/level/assets/spaceship/textures/Shuttle_Hover_Col.jpg" id="1_58kvr"]
 [ext_resource type="Texture2D" uid="uid://c20ftabar1hga" path="res://assets/level/assets/spaceship/textures/Shuttle_Hover_Nor_2.jpg" id="2_1qfes"]
 [ext_resource type="Texture2D" uid="uid://bqy0ywliqlm8x" path="res://assets/level/assets/spaceship/textures/Shuttle_Inside_Col.jpg" id="3_clfsa"]
@@ -811,7 +812,12 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_n2hbe"]
 size = Vector3(2.0854492, 12.7341385, 7.0474567)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_58kvr"]
+height = 2.9233427
+radius = 8.19043
+
 [node name="Shuttle" type="StaticBody3D"]
+script = ExtResource("1_1qfes")
 
 [node name="Transport Shuttle_fbx" type="Node3D" parent="."]
 
@@ -1154,3 +1160,11 @@ libraries = {
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-0.03334707, -0.9994438, 0, 0.9994438, -0.03334707, 0, 0, 0, 1, 0.4541807, 1.2414145, -0.066189766)
 shape = SubResource("BoxShape3D_n2hbe")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6563463, 0)
+shape = SubResource("CylinderShape3D_58kvr")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
