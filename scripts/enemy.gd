@@ -90,12 +90,13 @@ func _physics_process(delta: float) -> void:
 
 func on_attack_finished() -> void:
 	is_attacking = false
-	if pending_exit:
-		pending_exit = false
-		if target != null:
-			state = States.chase
-		else:
-			state = States.idle
+	pending_exit = false
+	if body_target != null and is_player_in_chase_zone and not global_vars.is_player_invisible:
+		target = body_target
+		state = States.chase
+	else:
+		target = null
+		state = States.idle
 
 func _on_chase_area_body_entered(body: Node3D) -> void:
 	if body.has_method("player"):
@@ -108,11 +109,13 @@ func _on_chase_area_body_entered(body: Node3D) -> void:
 
 
 func _on_chase_area_body_exited(body: Node3D) -> void:
-	is_player_in_chase_zone = false
-	is_player_detected = false
 	if body.has_method("player"):
-		target = null
-		state = States.idle
+		is_player_in_chase_zone = false
+		is_player_detected = false
+		if target == body:
+			target = null
+		if not is_attacking:
+			state = States.idle
 
 func _on_attack_area_body_entered(body: Node3D) -> void:
 	if body.has_method("player"):
@@ -127,15 +130,19 @@ func _on_attack_area_body_entered(body: Node3D) -> void:
 			body.get_node("sfx_manager").play_hurt()
 		
 func _on_attack_area_body_exited(body: Node3D) -> void:
-	body_target = body
-	is_player_in_attack_zone = false
 	if body.has_method("player"):
+		body_target = body
+		is_player_in_attack_zone = false
 		if is_attacking:
 			target = body
 			pending_exit = true
 		else:
-			target = body
-			state = States.chase
+			if is_player_in_chase_zone and not global_vars.is_player_invisible:
+				target = body
+				state = States.chase
+			else:
+				target = null
+				state = States.idle
 
 
 func change_state(new_state):
