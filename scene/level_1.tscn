@@ -178,7 +178,30 @@ transform = Transform3D(-0.8660254, -0.43301272, 0.25000003, 0.35355344, -0.1767
 shadow_enabled = true
 
 [node name="player" parent="." instance=ExtResource("1_tw77e")]
-transform = Transform3D(0.1323948, 0, 0.9911969, 0, 1, 0, -0.9911969, 0, 0.1323948, -147.86101, -0.017397285, -77.4047)
+transform = Transform3D(0.1323948, 0, 0.9911969, 0, 1, 0, -0.9911969, 0, 0.1323948, -130.69196, -0.017397285, -162.71451)
+
+[node name="red enemy" type="Node3D" parent="."]
+
+[node name="Enemy" parent="red enemy" instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141.29018, 0.28410983, -67.89737)
+
+[node name="Enemy2" parent="red enemy" instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -155.33759, 0, -166.97221)
+
+[node name="Enemy3" parent="red enemy" instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -158.68098, 0, -173.1504)
+
+[node name="Enemy4" parent="red enemy" instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -154.26488, 0, -143.05188)
+
+[node name="Enemy5" parent="red enemy" instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.48284, 0, -140.74269)
+
+[node name="Enemy6" parent="red enemy" instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -189.27115, 0, -134.45737)
+
+[node name="Enemy7" parent="red enemy" instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -124.2727, 0, -179.69711)
 
 [node name="patrol_points" type="Node3D" parent="."]
 transform = Transform3D(0.06543783, 0, -0.99785674, 0, 1, 0, 0.99785674, 0, 0.06543783, -74.17225, 3.6065521, -145.06778)
@@ -189,12 +212,48 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.274796, -3.5763605, 85.089
 [node name="Marker3D2" type="Marker3D" parent="patrol_points"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.393173, -3.8051324, 73.628044)
 
+[node name="Marker3D2" type="Marker3D" parent="patrol_points/Marker3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.189034, -3.8051324, -36.789932)
+
+[node name="Marker3D2" type="Marker3D" parent="patrol_points/Marker3D2/Marker3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.778824, -3.8051324, 6.336357)
+
+[node name="Marker3D2" type="Marker3D" parent="patrol_points/Marker3D2/Marker3D2/Marker3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7534485, -3.8051324, -8.525887)
+
+[node name="Marker3D2" type="Marker3D" parent="patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5167236, -3.805132, 24.918404)
+
+[node name="Marker3D2" type="Marker3D" parent="patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.710037, -3.805132, 1.457428)
+
+[node name="Marker3D2" type="Marker3D" parent="patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.619644, -3.805132, -12.761581)
+
+[node name="Marker3D2" type="Marker3D" parent="patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.180588, -3.805132, -4.1386185)
+
+[node name="Marker3D2" type="Marker3D" parent="patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.015808, -3.805132, 8.358017)
+
 [node name="raycast_enemy" type="Node3D" parent="."]
 transform = Transform3D(0.06543783, 0, -0.99785674, 0, 1, 0, 0.99785674, 0, 0.06543783, -74.17225, 3.6065521, -145.06778)
 
 [node name="Patrol_Enemy" parent="raycast_enemy" node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_tlh70")]
 transform = Transform3D(0.14596224, 0, 0.98929024, 0, 1, 0, -0.98929024, 0, 0.14596224, 22.152565, -3.5695455, 81.854164)
 patrol_points = [NodePath("../../patrol_points/Marker3D"), NodePath("../../patrol_points/Marker3D2")]
+
+[node name="Patrol_Enemy4" parent="raycast_enemy" node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_tlh70")]
+transform = Transform3D(0.06543783, 0, 0.99785674, 0, 1, 0, -0.99785674, 0, 0.06543783, -21.179153, -3.6065521, 49.41854)
+patrol_points = [NodePath("../../patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2"), NodePath("../../patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2"), NodePath("../../patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2")]
+
+[node name="Patrol_Enemy2" parent="raycast_enemy" node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_tlh70")]
+transform = Transform3D(0.06543782, 0, 0.9978566, 0, 1, 0, -0.9978566, 0, 0.06543782, -16.201263, -3.6065521, 45.22132)
+patrol_points = [NodePath("../../patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2"), NodePath("../../patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2/Marker3D2")]
+
+[node name="Patrol_Enemy3" parent="raycast_enemy" node_paths=PackedStringArray("patrol_points") instance=ExtResource("4_tlh70")]
+transform = Transform3D(0.06543783, 0, 0.99785674, 0, 1, 0, -0.99785674, 0, 0.06543783, -25.030884, -3.6065521, 37.699783)
+patrol_points = [NodePath("../../patrol_points/Marker3D2/Marker3D2"), NodePath("../../patrol_points/Marker3D2/Marker3D2/Marker3D2"), NodePath("../../patrol_points/Marker3D2/Marker3D2/Marker3D2/Marker3D2")]
 
 [node name="walls" type="Node3D" parent="."]
 
@@ -430,4 +489,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -151.93561, 0, -137.36981)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.763077, 0, -25.295074)
 
 [node name="Enemy" parent="." instance=ExtResource("15_hs4ge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141.29018, 0.28410983, -67.89737)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80.895935, 0, -130.5449)
+
+[node name="Enemy2" parent="." instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99.27832, 0, -119.81189)
+
+[node name="Enemy3" parent="." instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -166.08356, 0, -141.87903)
+
+[node name="Enemy4" parent="." instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -144.64969, 0, -136.39818)
+
+[node name="Enemy5" parent="." instance=ExtResource("15_hs4ge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.62358, 0, -112.462524)
