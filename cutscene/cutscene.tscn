@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://de3hvjybs6s7r"]
+
+[ext_resource type="Texture2D" uid="uid://dpfvsx1wyv5qh" path="res://cutscene/img1.png" id="1_d3cms"]
+[ext_resource type="Script" uid="uid://c5emc2pfqf2o5" path="res://cutscene/cutscene.gd" id="1_dgkl1"]
+[ext_resource type="Theme" uid="uid://ci5bwfvjb3fy2" path="res://Menu.tres" id="1_xp3h3"]
+
+[node name="Cutscene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xp3h3")
+script = ExtResource("1_dgkl1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1164.0
+offset_bottom = 661.0
+texture = ExtResource("1_d3cms")
+expand_mode = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 484.0
+offset_right = 1164.0
+offset_bottom = 656.0
+
+[node name="DialogueText" type="Label" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Next" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.546
+anchor_bottom = 1.0
+offset_left = 912.0
+offset_top = 599.0
+offset_right = 527.008
+offset_bottom = -2.0
+theme_override_font_sizes/font_size = 31
+text = "Continue
+"
+
+[connection signal="pressed" from="Next" to="." method="_on_next_pressed"]

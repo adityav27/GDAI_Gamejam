@@ -1,14 +1,14 @@
 [gd_scene load_steps=16 format=3 uid="uid://yxn1ih6qrc01"]
 
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="1_e0kty"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="2_lt5xy"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="3_0051t"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="4_5a045"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="5_gkw57"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="5_n2in0"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="6_3iwkw"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="7_jofmq"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="8_gnbkw"]
+[ext_resource type="Script" uid="uid://cfqonouscy1bn" path="res://addons/proton_scatter/src/scatter.gd" id="1_e0kty"]
+[ext_resource type="Script" uid="uid://j3b8vsjre7fl" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="2_lt5xy"]
+[ext_resource type="Script" uid="uid://bibm4caidf1u2" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="3_0051t"]
+[ext_resource type="Script" uid="uid://bhfge3xtl6ut3" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="4_5a045"]
+[ext_resource type="Script" uid="uid://p2bcy0qhex6x" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="5_gkw57"]
+[ext_resource type="Script" uid="uid://b5hopk8ww02kx" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="5_n2in0"]
+[ext_resource type="Script" uid="uid://bwclsip77fr7a" path="res://addons/proton_scatter/src/scatter_item.gd" id="6_3iwkw"]
+[ext_resource type="Script" uid="uid://eb1cinbj8rg0" path="res://addons/proton_scatter/src/scatter_shape.gd" id="7_jofmq"]
+[ext_resource type="Script" uid="uid://bny8ouackbcgl" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="8_gnbkw"]
 
 [sub_resource type="Resource" id="Resource_jbxru"]
 script = ExtResource("3_0051t")

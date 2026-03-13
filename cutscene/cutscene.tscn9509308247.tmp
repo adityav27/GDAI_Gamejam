@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://de3hvjybs6s7r"]
+
+[ext_resource type="Texture2D" uid="uid://dpfvsx1wyv5qh" path="res://cutscene/img1.png" id="1_d3cms"]
+[ext_resource type="Script" uid="uid://c5emc2pfqf2o5" path="res://cutscene/cutscene.gd" id="1_dgkl1"]
+
+[node name="Cutscene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dgkl1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1160.0
+offset_bottom = 650.0
+texture = ExtResource("1_d3cms")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DialogueText" type="Label" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Next" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.546
+anchor_bottom = 1.0
+offset_left = 1700.0
+offset_top = 1792.0
+offset_right = 1699.008
+offset_bottom = 1295.0
+text = "Continue
+"
+
+[connection signal="pressed" from="Next" to="." method="_on_next_button_pressed"]

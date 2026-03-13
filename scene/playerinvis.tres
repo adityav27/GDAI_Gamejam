@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cmw7frf5subyg"]
+
+[ext_resource type="Shader" uid="uid://ih6sejbuh43t" path="res://shader/player.gdshader" id="1_kth8g"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_kth8g")
+shader_parameter/distortion_strength = 0.02
+shader_parameter/noise_scale = 10.0
+shader_parameter/visibility = 0.2
+shader_parameter/shimmer_amount = 1.0
+shader_parameter/fringe_color = Color(0.3, 0.7, 1, 1)
+shader_parameter/fringe_strength = 2.0
+shader_parameter/fringe_width = 3.0

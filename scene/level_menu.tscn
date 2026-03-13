@@ -1,0 +1,180 @@
+[gd_scene load_steps=12 format=3 uid="uid://xlfxi6xoinmj"]
+
+[ext_resource type="Shader" uid="uid://qff1aaaiocq2" path="res://shader/stylized_sky.gdshader" id="2_d1vmp"]
+[ext_resource type="Texture2D" uid="uid://dlhb3vu4nvawl" path="res://assets/my textures/Rock049_1K-PNG/Rock049_1K-PNG_Color.png" id="3_tqojr"]
+[ext_resource type="Texture2D" uid="uid://c7ps63rqrxdho" path="res://assets/my textures/Rock049_1K-PNG/Rock049_1K-PNG_NormalGL.png" id="4_xv1ll"]
+[ext_resource type="Texture2D" uid="uid://buv55j4v1ejle" path="res://assets/my textures/Rock049_1K-PNG/Rock049_1K-PNG_Roughness.png" id="5_ks0gf"]
+[ext_resource type="PackedScene" uid="uid://cb3yl4d82rnts" path="res://scene/enemy.tscn" id="6_x2vd3"]
+[ext_resource type="PackedScene" uid="uid://dxahcui3dak6u" path="res://scene/patrol_enemy.tscn" id="7_n8g5b"]
+
+[sub_resource type="GDScript" id="GDScript_lsoxn"]
+script/source = "extends Node3D
+
+
+@export var world_environment_node : WorldEnvironment
+
+func _ready() -> void:
+	_setup_directional_light()
+	_setup_environment()
+
+
+func _setup_directional_light() -> void:
+	var light := DirectionalLight3D.new()
+	add_child(light)
+	light.name = \"AlienSunLight\"
+
+	# --- Direction ---.
+	light.rotation_degrees = Vector3(-48.0, -46.0, 0.0)
+
+	# --- Color & Energy ---
+	light.light_color       = Color(0.78, 0.84, 0.92)  
+	light.light_energy      = 1.15                      
+
+	# --- Shadows ---
+	light.shadow_enabled    = true
+
+	light.directional_shadow_mode        = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS
+	light.directional_shadow_split_1     = 0.10
+	light.directional_shadow_split_2     = 0.30
+	light.directional_shadow_split_3     = 0.60
+	light.directional_shadow_fade_start  = 0.85
+	light.shadow_blur                    = 2.0           
+
+
+	light.light_specular    = 0.25
+
+
+func _setup_environment() -> void:
+	var env_node : WorldEnvironment
+
+	if world_environment_node != null:
+		env_node = world_environment_node
+	else:
+		env_node = WorldEnvironment.new()
+		add_child(env_node)
+		env_node.name = \"WorldEnvironment\"
+
+	var env : Environment
+	if env_node.environment != null:
+		env = env_node.environment
+	else:
+		env = Environment.new()
+		env_node.environment = env
+
+	env.ambient_light_source  = Environment.AMBIENT_SOURCE_COLOR
+	env.ambient_light_color   = Color(0.14, 0.22, 0.20)  
+	env.ambient_light_energy  = 0.55                        
+
+
+	env.tonemap_mode          = Environment.TONE_MAPPER_FILMIC
+	env.tonemap_exposure      = 1.05
+	env.tonemap_white         = 1.0
+
+	env.glow_enabled          = true
+	env.glow_normalized       = false
+	env.glow_intensity        = 0.6
+	env.glow_bloom            = 0.12
+	env.glow_blend_mode       = Environment.GLOW_BLEND_MODE_SOFTLIGHT
+
+	env.ssao_enabled          = true
+	env.ssao_radius           = 0.8
+	env.ssao_intensity        = 1.2
+
+	print(\"[AlienLighting] Setup complete.\")
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_70cbr"]
+shader = ExtResource("2_d1vmp")
+shader_parameter/sky_top_color = Color(0.05, 0.05, 0.1, 1)
+shader_parameter/sky_mid_color = Color(0.08, 0.07, 0.11, 1)
+shader_parameter/sky_horizon_color = Color(0.15, 0.05, 0.2, 1)
+shader_parameter/horizon_glow_color = Color(0.2, 0.55, 0.3, 1)
+shader_parameter/nebula_color_a = Color(0.45, 0.1, 0.55, 1)
+shader_parameter/nebula_color_b = Color(0.1, 0.55, 0.45, 1)
+shader_parameter/nebula_color_c = Color(0.7, 0.25, 0.1, 1)
+shader_parameter/nebula_coverage = 0.48
+shader_parameter/nebula_opacity = 0.72
+shader_parameter/nebula_speed = 0.010000000475
+shader_parameter/nebula_scale = 1.4
+shader_parameter/star_density = 0.07200000272148
+shader_parameter/star_twinkle = 0.2050000097375
+shader_parameter/show_giant = true
+shader_parameter/giant_color_a = Color(0.55, 0.35, 0.12, 1)
+shader_parameter/giant_color_b = Color(0.25, 0.15, 0.38, 1)
+shader_parameter/giant_direction = Vector3(-0.55, 0.38, -0.75)
+shader_parameter/giant_size = 0.09
+shader_parameter/giant_glow_size = 0.06
+shader_parameter/giant_glow_color = Color(0.4, 0.2, 0.05, 1)
+
+[sub_resource type="Sky" id="Sky_xesoj"]
+sky_material = SubResource("ShaderMaterial_70cbr")
+
+[sub_resource type="Environment" id="Environment_3flxk"]
+background_mode = 2
+sky = SubResource("Sky_xesoj")
+ambient_light_source = 2
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_anisotropy = 0.66
+volumetric_fog_sky_affect = 0.14
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lsoxn"]
+albedo_texture = ExtResource("3_tqojr")
+roughness_texture = ExtResource("5_ks0gf")
+normal_enabled = true
+normal_texture = ExtResource("4_xv1ll")
+
+[node name="Level1" type="Node3D"]
+script = SubResource("GDScript_lsoxn")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3flxk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301272, 0.25000003, 0.35355344, -0.17677678, 0.91855866, -0.35355335, 0.8838835, 0.30618635, -1, -2, 5)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(35, 1, 35)
+material = SubResource("StandardMaterial3D_lsoxn")
+
+[node name="Enemy" parent="." instance=ExtResource("6_x2vd3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4166448, 0.44353867, -1.6784668)
+
+[node name="Patrol_Enemy" parent="." instance=ExtResource("7_n8g5b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.80062, 0.41061783, 0.6522145)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.161307, 0.88687944, 2.2675438)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -272.0
+offset_top = -33.0
+offset_right = 42.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="l1" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "1"
+
+[node name="l2" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "2"
+
+[node name="Button3" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "3"
+
+[node name="Button4" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "4
+"

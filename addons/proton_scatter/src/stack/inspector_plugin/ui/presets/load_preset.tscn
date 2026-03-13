@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/inspector_plugin/ui/presets/load_preset.gd" id="1"]
+[ext_resource type="Script" uid="uid://dh6f2fg2lb323" path="res://addons/proton_scatter/src/stack/inspector_plugin/ui/presets/load_preset.gd" id="1"]
 
 [node name="LoadPresetPopup" type="WindowDialog"]
 visible = true
