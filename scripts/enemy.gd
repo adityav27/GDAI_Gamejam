@@ -98,8 +98,8 @@ func on_attack_finished() -> void:
 			state = States.idle
 
 func _on_chase_area_body_entered(body: Node3D) -> void:
-	body_target = body
 	if body.has_method("player"):
+		body_target = body
 		is_player_in_chase_zone = true
 		if not global_vars.is_player_invisible:
 			is_player_detected = true
@@ -115,8 +115,8 @@ func _on_chase_area_body_exited(body: Node3D) -> void:
 		state = States.idle
 
 func _on_attack_area_body_entered(body: Node3D) -> void:
-	body_target = body
-	if body.has_method("player"):	
+	if body.has_method("player"):
+		body_target = body
 		is_player_in_attack_zone = true
 
 		if not is_attacking and not global_vars.is_player_invisible:

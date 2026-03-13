@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ci5bwfvjb3fy2"]
+
+[ext_resource type="FontFile" uid="uid://bstokc55l7b5x" path="res://scene/Deltha.ttf" id="1_ymob4"]
+
+[resource]
+default_font = ExtResource("1_ymob4")

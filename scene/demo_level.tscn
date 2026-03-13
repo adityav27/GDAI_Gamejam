@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cb3yl4d82rnts" path="res://scene/enemy.tscn" id="4_fa4xp"]
 [ext_resource type="PackedScene" uid="uid://dxahcui3dak6u" path="res://scene/patrol_enemy.tscn" id="5_cfhu8"]
 [ext_resource type="PackedScene" uid="uid://cfu8cql14afi" path="res://keycard.tscn" id="7_3wdwi"]
+[ext_resource type="PackedScene" uid="uid://dek3hllh1w3fd" path="res://health_gen.tscn" id="8_vwaen"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fa4xp"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -172,3 +173,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.13717, 0, -42.674038)
 
 [node name="KeyCard" parent="." instance=ExtResource("7_3wdwi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0816693, 2.5853186, 1.3914931)
+
+[node name="HealthGen" parent="." instance=ExtResource("8_vwaen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.789679, 0.1008811, 7.1937957)
