@@ -5,7 +5,8 @@ extends VBoxContainer
 @onready var levels: Button = $Levels
 @onready var exit: Button = $Exit
 
-
+func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()

@@ -10,8 +10,10 @@ var images = [
 ]
 
 var dialogue = [
-	"The facility was supposed to be abandoned...",
-	"But something is watching."
+	"You ran out of fuel while on a space mission and have to make an emergency landing on a
+	 nearby planet ...",
+	"But what you did not realise was the planet was overrun by deadly robots.
+	 Your goal? Collect 4 keycards and get outta there"
 ]
 
 var step := 0
