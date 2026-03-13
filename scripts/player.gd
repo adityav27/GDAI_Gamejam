@@ -23,7 +23,7 @@ var last_move_direction = Vector3.BACK
 @export var move_speed = 0
 @export var acceleration = 20
 @export var turn_speed = 12
-@export var jump_impulse = 8
+@export var jump_impulse = 10
 
 @export_group("Dash")
 @export var dash_speed = 20
@@ -83,6 +83,7 @@ func _ready():
 	invis_uses_left = max_invis_uses
 	
 	global_vars.damage_player.connect(_on_damage_player)
+	global_vars.regen_player.connect(_on_regen_player)
 	global_vars.is_player_invisible = false
 	global_vars.is_player_dead = false
 
@@ -145,12 +146,12 @@ func _physics_process(delta: float) -> void:
 
 
 	# ================= DASH INPUT =================
-	if Input.is_action_just_pressed("dash") and dash_cooldown_timer <= 0.0 and is_on_floor() and not is_crouching:
-			dash_direction = last_move_direction
-			dash_timer = dash_duration
-			dash_cooldown_timer = dash_cooldown
-			stamina -= dash_stamina_cost
-			is_dashing = true
+	#if Input.is_action_just_pressed("dash") and dash_cooldown_timer <= 0.0 and is_on_floor() and not is_crouching:
+			#dash_direction = last_move_direction
+			#dash_timer = dash_duration
+			#dash_cooldown_timer = dash_cooldown
+			#stamina -= dash_stamina_cost
+			#is_dashing = true
 
 
 	# ================= SPEED =================
@@ -288,3 +289,6 @@ func _on_damage_player(damage):
 	health -= damage
 	if health > 0.0:
 		$sfx_manager.play_hurt()
+
+func _on_regen_player():
+	health = 100
