@@ -178,12 +178,10 @@ transform = Transform3D(-0.8660254, -0.43301272, 0.25000003, 0.35355344, -0.1767
 shadow_enabled = true
 
 [node name="player" parent="." instance=ExtResource("1_tw77e")]
-transform = Transform3D(0.1323948, 0, 0.9911969, 0, 1, 0, -0.9911969, 0, 0.1323948, -130.69196, -0.017397285, -162.71451)
+transform = Transform3D(0.1323948, 0, 0.9911969, 0, 1, 0, -0.9911969, 0, 0.1323948, -62.98047, -0.017397285, -74.27992)
+jump_impulse = 14
 
 [node name="red enemy" type="Node3D" parent="."]
-
-[node name="Enemy" parent="red enemy" instance=ExtResource("15_hs4ge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141.29018, 0.28410983, -67.89737)
 
 [node name="Enemy2" parent="red enemy" instance=ExtResource("15_hs4ge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -155.33759, 0, -166.97221)
